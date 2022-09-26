@@ -31,12 +31,27 @@ void initProgram(){
         Console.WriteLine($"Il tuo evento: \n{output}");
 
     //user
-    Console.WriteLine("Vuoi prenotare un posto a questo evento?[y/n]");
+    Console.WriteLine("Vuoi prenotare un posto a questo evento?[y / n]");
     string res = Console.ReadLine();
 
     if (res.Contains("y"))
     {
         reservation(newEvent);
+        Console.WriteLine("Vuoi disdire dei posti per questo evento?[y / n]");
+        string response = Console.ReadLine();
+        if (response.Contains("y"))
+        {
+            deleteReservation(newEvent);
+        }
+    }
+    else if (res.Contains("n"))
+    {
+        Console.WriteLine("Altre opzioni");
+
+    }
+    else
+    {
+        Console.WriteLine("risposta non valida");
     }
 
 
@@ -48,5 +63,14 @@ void reservation(Event newEvent)
     int request = Convert.ToInt32(Console.ReadLine());
     newEvent.setReservedSeat(request);
 }
+
+void deleteReservation(Event newEvent)
+{
+    Console.WriteLine("Quanti posti vorresti disdire?");
+    int request = Convert.ToInt32(Console.ReadLine());
+    newEvent.cancelReservation(request);
+}
+
+
 
 

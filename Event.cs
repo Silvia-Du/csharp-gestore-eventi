@@ -142,12 +142,6 @@ public class Event
 
     //disdici posti
 
-    /*
-     *  DisdiciPosti: riduce del i posti prenotati del numero di posti indicati come
-        parametro. Se l’evento è già passato o non ci sono i posti da disdire
-        sufficienti, deve sollevare un’eccezione.
-     * 
-     */
     public void cancelReservation(int requestSeat)
     {
         //int seat = requestSeat;
@@ -155,25 +149,34 @@ public class Event
         if (value >= 0)
         {
             //ECCEZIONEEE
-            string message1 = "L'evento è gia passato, ci dispiace molto!";
+            Console.WriteLine("L'evento è gia passato, ci dispiace molto!");
             //eventuale re indirizzamento
         }
-
-        //se i posti riservati sono inferirori a quelli da torgliere nn è possibile
-
-        
+ 
         int rest = ReservedSeats - requestSeat;
-        if (rest > 0)
+        if (rest >= 0)
         {
             ReservedSeats -= requestSeat;
+            Console.WriteLine($"Hai disdetto correttamente {requestSeat} posti");
+            getAvailableSeats();
         }
         else
         {
             //ECCEZIONEEE
             Console.WriteLine("Non ci sono abbastanza posti da togliere! ci dispiace");
+            getAvailableSeats();
+
         }
 
     }
+
+    public void getAvailableSeats() 
+    { 
+        Console.WriteLine($"I posti disponibili sono: {MaxCapacity - ReservedSeats};" +
+            $"\nI posti prenotati per l'evento sono :{ReservedSeats}");
+    
+    }
+
 
     public override string ToString()
     {
