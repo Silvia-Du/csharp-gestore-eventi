@@ -8,10 +8,12 @@ Console.WriteLine("Hello, World!");
 
 public class Event
 {
-    string Title { get; set; }
-    DateOnly EventDate { get; set; }
-    int MaxCapacity { get;}
-    int ReservedSeats { get;}
+    DateOnly NowTime = DateOnly.FromDateTime(DateTime.Now);
+
+    public string Title { get; set; }
+    public DateOnly EventDate { get; private set; }
+    public int MaxCapacity { get;}
+    public int ReservedSeats { get; private set; }
 
     public Event(string title, string eventDate, int maxCapacity)
     {
@@ -43,7 +45,6 @@ public class Event
         //int n = dt1.CompareTo(dt2);
         //If n > 0, then dt1 > dt2; if n = 0, then dt1 = dt2; if n < 0, then dt1 < dt2.
         bool check = false;
-        DateOnly NowTime = DateOnly.FromDateTime(DateTime.Now);
         int value = NowTime.CompareTo(date);
         while (!check)
         {
@@ -89,6 +90,84 @@ public class Event
         }
         return newMaxcapacity;
     }
+
+
+    //riserva posti
+    public void setReservedSeat(int requestSeat)
+    {
+        int seat = requestSeat;
+        int value = NowTime.CompareTo(EventDate);
+        if (value >= 0)
+        {
+            //ECCEZIONEEE
+            string message1 =  "L'evento è gia passato, ci dispiace molto!";
+            //eventuale re indirizzamento
+        }
+
+
+        int availableSeat = MaxCapacity - ReservedSeats;
+        int rest = seat - Math.Abs(availableSeat);
+        if (availableSeat > seat)
+        {
+            ReservedSeats += seat;
+        }
+        else if(rest != 0)
+        {
+            Console.WriteLine($"I posti disponibili sono {rest}, vuoi prenotarli?[y/n]");
+            string resp = Console.ReadLine();
+            if (resp.Contains("y"))
+            {
+                ReservedSeats += rest;
+                Console.WriteLine("I tuoi posti sono stati prenotati correttamente");
+            }
+        }
+        else
+        {
+            //ECCEZIONEEE
+            string message1 = "Non ci sono posti disponibili, ci dispiace molto!";
+        }
+
+    }
+
+    //disdici posti
+
+    /*
+     *  DisdiciPosti: riduce del i posti prenotati del numero di posti indicati come
+        parametro. Se l’evento è già passato o non ci sono i posti da disdire
+        sufficienti, deve sollevare un’eccezione.
+     * 
+     */
+    public void cancelReservation(int requestSeat)
+    {
+        //int seat = requestSeat;
+        int value = NowTime.CompareTo(EventDate);
+        if (value >= 0)
+        {
+            //ECCEZIONEEE
+            string message1 = "L'evento è gia passato, ci dispiace molto!";
+            //eventuale re indirizzamento
+        }
+
+        //se i posti riservati sono inferirori a quelli da torgliere nn è possibile
+
+        int rest = ReservedSeats - requestSeat;
+        if (rest > 0)
+        {
+            ReservedSeats -= requestSeat;
+        }
+        else
+        {
+            //ECCEZIONEEE
+            Console.WriteLine("Non ci sono abbastanza posti da togliere! ci dispiace");
+        }
+
+    }
+
+    public override string ToString()
+    {
+        return $"Data dell'evento: {EventDate.ToString()} \nNome dell'evento: {Title}";
+    }
+
 
 
 }
