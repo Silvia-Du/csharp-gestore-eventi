@@ -101,26 +101,42 @@ public class Event
 
 
         int availableSeat = MaxCapacity - ReservedSeats;
-        int rest = seat - Math.Abs(availableSeat);
-        if (availableSeat > seat)
+        
+        //int rest = Math.Abs(availableSeat) - seat;
+        if (availableSeat > 0)
         {
-            ReservedSeats += seat;
-        }
-        else if(rest != 0)
-        {
-            Console.WriteLine($"I posti disponibili sono {rest}, vuoi prenotarli?[y/n]");
-            string resp = Console.ReadLine();
-            if (resp.Contains("y"))
+            if(availableSeat >= seat)
             {
-                ReservedSeats += rest;
-                Console.WriteLine("I tuoi posti sono stati prenotati correttamente");
+                ReservedSeats += seat;
+                
+                Console.WriteLine($"I tuoi posti sono stati prenotati correttamente \n " +
+                    $"Posti prenotati :{seat} \nPosti ancora disponibili :{availableSeat - ReservedSeats}");
+
+            }
+            else
+            {
+                Console.WriteLine($"I posti disponibili sono {availableSeat}, vuoi prenotarli?[y/n]");
+                string response = Console.ReadLine();
+                if (response.Contains("y"))
+                {
+                    ReservedSeats += availableSeat;
+                    //Console.WriteLine("I tuoi posti sono stati prenotati correttamente");
+                    Console.WriteLine($"I tuoi posti sono stati prenotati correttamente \n " +
+                    $"Posti prenotati{availableSeat} \nNon ci sono altri posti disponibili");
+
+                }
+                else
+                {
+                    Console.WriteLine("Grazie per aver utilizzato il nostro servizio");
+                }
             }
         }
-        else
+        else if(availableSeat == 0)
         {
-            //ECCEZIONEEE
-            string message1 = "Non ci sono posti disponibili, ci dispiace molto!";
+            Console.WriteLine("Non ci sono posti disponibili, ci dispiace molto!");
         }
+
+        
 
     }
 
