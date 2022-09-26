@@ -116,9 +116,5 @@ void reservation(Event newEvent)
 
 }
 
-void deleteReservation(Event newEvent)
-{
-    
-}
 
 

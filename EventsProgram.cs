@@ -2,6 +2,8 @@
 //Nel costruttore valorizzare il titolo, passato come parametro, e inizializzate la lista di eventi
 //come una nuova Lista vuota di eventi.
 
+using System.Collections.Generic;
+
 public class EventsProgram
 {
     public string Title { get; private set; }
@@ -69,6 +71,19 @@ public class EventsProgram
     {
         
         Events.Clear();
+    }
+
+//    ● un metodo che restituisce una stringa che mostra il titolo del programma e tutti gli
+//eventi aggiunti alla lista.
+    public string getFullProgram()
+    {
+        string output = $"Nome programma evento: {Title}; \n";
+        foreach (Event e in Events)
+        {
+            output += $"{e.EventDate} - {e.Title}; \n";
+        }
+
+        return output;
     }
 }
 
