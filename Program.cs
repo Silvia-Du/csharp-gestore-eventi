@@ -2,6 +2,9 @@
 using Microsoft.VisualBasic;
 using System;
 using System.Reflection.Metadata;
+using System.Reflection.PortableExecutable;
+using System.Runtime.ConstrainedExecution;
+using System.Text.Json;
 
 Console.WriteLine("Crea il tuo primo programma di eventi! Inserisci il nome del programma :");
 EventsProgram newProgram = new (Console.ReadLine());
@@ -128,7 +131,7 @@ void reservation(Event newEvent)
         Console.WriteLine("Grazie per aver usato il programma");
 
     }
- 
+
 
 }
 
