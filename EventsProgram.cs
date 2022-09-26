@@ -3,6 +3,7 @@
 //come una nuova Lista vuota di eventi.
 
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 public class EventsProgram
 {
@@ -84,6 +85,16 @@ public class EventsProgram
         }
 
         return output;
+    }
+
+    public Event getEventType(string title)
+    {
+
+        Event? searchEvent = Events.Find(x => x.Title == title);
+        if(searchEvent is null)
+            throw new InvalidOperationException("Questo evento non è stato trovato");
+
+        return searchEvent;
     }
 }
 
