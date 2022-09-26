@@ -148,8 +148,23 @@ void findEvent()
             initProgram();
             break;
         case "2":
-            initProgram();
+            bool check = false;
+            while (!check)
+            {
+                Console.WriteLine("inserisci il titolo dell'evento");
+                try
+                {
+                    Event searchedEvent = newProgram.getEvent(Console.ReadLine());
+                    check = true;
+                    reservation(searchedEvent);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
             break;
+            
     }
     //funzione per cancellare tutti gli eventi
     //Console.WriteLine("Ora di addio a tutti i tuoi eventi");

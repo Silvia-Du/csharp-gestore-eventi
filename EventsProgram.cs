@@ -87,7 +87,7 @@ public class EventsProgram
         return output;
     }
 
-    public Event getEventType(string title)
+    public Event getEvent(string title)
     {
 
         Event? searchEvent = Events.Find(x => x.Title == title);
