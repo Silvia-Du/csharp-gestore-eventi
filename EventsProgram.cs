@@ -48,7 +48,7 @@ public class EventsProgram
             foreach (Event e in list)
             {
                 ++count;
-                events += $"-{count}: {e.ToString()}; \n {e.getAvailableSeats()}";
+                events += $"-{count}: {e.ToString()}; \n {e.getAvailableSeats()}; \n";
             }
         }
         else
@@ -77,7 +77,7 @@ public class EventsProgram
 //eventi aggiunti alla lista.
     public string getFullProgram()
     {
-        string output = $"Nome programma evento: {Title}; \n";
+        string output = $"\nNome programma evento: {Title}; \n";
         foreach (Event e in Events)
         {
             output += $"{e.EventDate} - {e.Title}; \n";
