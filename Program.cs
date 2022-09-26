@@ -6,22 +6,6 @@ Console.WriteLine("Hello, World!");
 //classe 
 
 
-//DateOnly data1 = new (2022, 1, 1);
-//DateOnly StartTime = DateOnly.FromDateTime(DateTime.Now);
-//Console.WriteLine(StartTime);
-//Console.WriteLine(data1);
-//int chcek = StartTime.CompareTo(data1);
-//Console.WriteLine(chcek);
-//DateOnly title = DateOnly.FromDateTime(Console.ReadLine());
-
-
-
-//int n = dt1.CompareTo(dt2);
-//If n > 0, then dt1 > dt2; if n = 0, then dt1 = dt2; if n < 0, then dt1 < dt2.
-
-
-
-
 public class Event
 {
     string Title { get; set; }
@@ -33,7 +17,7 @@ public class Event
     {
         Title = CheckTitle(title);
         EventDate = CheckDate(eventDate);
-        MaxCapacity = maxCapacity;
+        MaxCapacity = maxCapacity > 0? maxCapacity: checkCapacity();
         ReservedSeats = 0;
 
     }
@@ -56,6 +40,8 @@ public class Event
 
         DateOnly date = CheckFormatDate(eventDate);
 
+        //int n = dt1.CompareTo(dt2);
+        //If n > 0, then dt1 > dt2; if n = 0, then dt1 = dt2; if n < 0, then dt1 < dt2.
         bool check = false;
         DateOnly NowTime = DateOnly.FromDateTime(DateTime.Now);
         int value = NowTime.CompareTo(date);
@@ -91,6 +77,17 @@ public class Event
             date = Console.ReadLine();
         }
         return eventDate = DateOnly.Parse(date);
+    }
+
+    private int checkCapacity()
+    {
+        int newMaxcapacity = 0;
+        while (newMaxcapacity <= 0)
+        {
+            Console.WriteLine("Il numero dei posti deisponibili deve essere positivo!");
+            newMaxcapacity = Convert.ToInt32(Console.ReadLine());
+        }
+        return newMaxcapacity;
     }
 
 
