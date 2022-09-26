@@ -8,27 +8,37 @@ using System.Text.Json;
 
 Console.WriteLine("Crea il tuo programma di eventi! Inserisci il nome:");
 EventsProgram newProgram = new(Console.ReadLine());
-string userChoice = "";
-while(!userChoice.Contains("1") && !userChoice.Contains("2"))
-{ 
-    Console.WriteLine("Inserisci un'evento generico[1], Inserisci una Conferenza[2]");
-    userChoice = Console.ReadLine();
+initProgram();
 
-}
-switch(userChoice)
+void initProgram()
 {
-    case "1": initProgram("Quanti eventi", "event");
-        break;
+    string userChoice = "";
+    while (!userChoice.Contains("1") && !userChoice.Contains("2") && !userChoice.Contains("3"))
+    {
+        Console.WriteLine("Inserisci un'evento generico[1], Inserisci una Conferenza[2], esci dal programma[3]");
+        userChoice = Console.ReadLine();
 
-    case "2": initProgram("Quante conferenze", "conference");
-        break;
+    }
+    switch (userChoice)
+    {
+        case "1":
+            setEvents("Quanti eventi", "event");
+            break;
 
+        case "2":
+            setEvents("Quante conferenze", "conference");
+            break;
+        case "3": 
+            Console.WriteLine("grazie per aver usato il programma");
+            break;
+    }
 }
+
 
 
 
 //programma
-void initProgram( string type, string mood){
+void setEvents( string type, string mood){
 
 
     Console.WriteLine($"{type} vuoi inserire?");
@@ -91,20 +101,60 @@ void initProgram( string type, string mood){
         }
     }
 
+
+    Console.WriteLine($"\nIl totale degli eventi in prgramma: {newProgram.GetEventsNum()}");
+    Console.WriteLine(newProgram.getFullProgram());
+
+    string userChoice = "";
+    while(!userChoice.Contains("1") && !userChoice.Contains("2"))
+    {
+        Console.WriteLine("crea altri eventi/conferenze[1], cerca un'evento per data[2]");
+        userChoice = Console.ReadLine();
+    }
+    switch (userChoice)
+    {
+        case "1":
+            initProgram();
+            break;
+        case "2":
+            Console.WriteLine("inserisci il titolo dell'evento");
+            break;
+    }
 }
 
 //stampa numero eventi
 
-Console.WriteLine($"\nIl totale degli eventi in prgramma: {newProgram.GetEventsNum()}");
-Console.WriteLine(newProgram.getFullProgram());
+void findEvent()
+{
 
-Console.WriteLine("\nInserisci la data in cui cercare eventi");
-DateOnly dateToCheck = DateOnly.ParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None);
-List<Event> eventsByDate = newProgram.GetEventsByDate(dateToCheck);
+    Console.WriteLine("\nInserisci la data in cui cercare eventi");
+    DateOnly dateToCheck = DateOnly.ParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None);
 
-Console.WriteLine(EventsProgram.GetEventsList(eventsByDate));
-//Console.WriteLine("Ora di addio a tutti i tuoi eventi");
-//newProgram.SetEmptyList();
+    List<Event> eventsByDate = newProgram.GetEventsByDate(dateToCheck);
+
+    Console.WriteLine(EventsProgram.GetEventsList(eventsByDate));
+
+    string makeReservation = "";
+    while (!makeReservation.Contains("y") && !makeReservation.Contains("n"))
+    {
+       
+        Console.WriteLine("vuoi effettuare una prenotazione?[y/n]");
+        makeReservation = Console.ReadLine();
+    }
+    switch (makeReservation)
+    {
+        case "1":
+
+            initProgram();
+            break;
+        case "2":
+            initProgram();
+            break;
+    }
+    //funzione per cancellare tutti gli eventi
+    //Console.WriteLine("Ora di addio a tutti i tuoi eventi");
+    //newProgram.SetEmptyList();
+}
 
 
 //gestione prenotazioni
